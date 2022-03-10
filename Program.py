@@ -1,6 +1,7 @@
 # from navigator import *
 import os
 from ctypes import *
+from time import sleep
 
 STD_OUTPUT_HANDLE = -11
 
@@ -20,6 +21,9 @@ class Program:
         p2 = Point(2, 2, '#')
         p2.draw()
 
+        # for _ in range(3):
+        #     sleep(1)
+        #     p1.move(0, 1)
 
 class Point:
     def __init__(self, x=0, y=0, sym=''):
@@ -27,6 +31,14 @@ class Point:
         self.y = y
         self.sym = sym
 
+    def move(self, dx, dy):
+        self.reset()
+        self.x += dx
+        self.y += dy
+        self.draw()
+
+    def reset(self):
+        pass
 
     def draw(self):
         r = self.x
