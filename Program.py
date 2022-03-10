@@ -21,9 +21,7 @@ class Program:
         p2 = Point(2, 2, '#')
         p2.draw()
 
-        # for _ in range(3):
-        #     sleep(1)
-        #     p1.move(0, 1)
+        list_1 = [p1, p2]
 
 class Point:
     def __init__(self, x=0, y=0, sym=''):
