@@ -14,16 +14,10 @@ class Program:
     def Main(self):
         # print('Hello!')
 
-        p1 = Point()
-        p1.x = 1
-        p1.y = 3
-        p1.sym = '*'
+        p1 = Point(1, 3, '*')
         p1.draw()
 
-        p2 = Point()
-        p2.x = 2
-        p2.y = 2
-        p2.sym = '#'
+        p2 = Point(2, 2, '#')
         p2.draw()
 
 
@@ -32,6 +26,7 @@ class Point:
         self.x = x
         self.y = y
         self.sym = sym
+
 
     def draw(self):
         r = self.x
