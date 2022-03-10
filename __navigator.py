@@ -7,7 +7,6 @@ STD_OUTPUT_HANDLE = -11
 class COORD(Structure):
     pass
 
-
 COORD._fields_ = [("X", c_short), ("Y", c_short)]
 
 
