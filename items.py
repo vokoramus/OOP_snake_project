@@ -1,5 +1,6 @@
 from navigator import *
 import keys
+from random import randint
 
 class Figure:
     def __init__(self):
@@ -54,6 +55,9 @@ class Point:
         s = self.sym
         sys_draw(r, c, s)
 
+    def is_hit(self, p2):
+        return self.x == p2.x and self.y == p2.y
+
 
 class Snake(Figure):
 
@@ -72,7 +76,6 @@ class Snake(Figure):
         }
 
         self.keys_funcs_keys = self.keys_funcs.keys()
-
 
     def move(self):
         tail = self.p_list[0]
@@ -94,3 +97,25 @@ class Snake(Figure):
             # print(keys_funcs[key])
             self.direction = (self.keys_funcs[key])
 
+    def eat(self, food):
+        head = self.get_next_point()
+        if head.is_hit(food):
+            food.sym = head.sym
+            food.draw()
+            self.p_list.append(food)
+            return True
+        else:
+            return False
+
+
+class FoodCreator:
+    def __init__(self, map_width, map_height, sym):
+        self.map_width = map_width
+        self.map_height = map_height
+        self.sym = sym
+
+    def create_food(self):
+        x = randint(1, self.map_width - 1)
+        y = randint(1, self.map_height - 1)
+
+        return Point(x, y, self.sym)
