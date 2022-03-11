@@ -67,6 +67,6 @@ class Program:
 
 if __name__ == '__main__':
     os.system('cls')
-    # os.system('mode 82, 26')
+    os.system('mode 82, 26')
     p = Program()
     p.main()
