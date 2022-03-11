@@ -1,9 +1,9 @@
 import os
 from items import *
-
+from time import sleep
 
 class Program:
-    def Main(self):
+    def main(self):
 
         # рамка
         line_high = HorizontalLine(0, 78, 0, '+')
@@ -17,17 +17,22 @@ class Program:
         line_right.draw()
 
         # точки
-        p1 = Point(10, 3, '*')
+        p1 = Point(1, 1, '*')
         p1.draw()
 
         snake = Snake(p1, 4, 'right')
         snake.draw()
 
+        for _ in range(10):
+            snake.move()
+            sleep(0.3)
+
+
 if __name__ == '__main__':
     os.system('cls')
     # os.system('mode 82, 26')
     p = Program()
-    p.Main()
+    p.main()
 
     while True:
         # i = input('Press Q to Quit or any other key to continue: ')

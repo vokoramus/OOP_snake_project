@@ -50,9 +50,9 @@ class Point:
         elif direction == 'down':
             self.y += offset
 
-
-    def reset(self):
-        pass
+    def clear(self):
+        self.sym = ' '
+        self.draw()
 
     def draw(self):
         r = self.y
@@ -64,7 +64,23 @@ class Point:
 class Snake(Figure):
     def __init__(self, tail: Point, length, direction):
         super().__init__()
+        self.direction = direction
         for i in range(length):
             pt = Point(tail.x, tail.y, tail.sym)
-            pt.move(i, direction)
+            pt.move(i, self.direction)
             self.p_list.append(pt)
+
+    def move(self):
+        tail = self.p_list[0]
+        self.p_list.remove(tail)
+        head = self.get_next_point()
+        self.p_list.append(head)
+
+        tail.clear()
+        head.draw()
+
+    def get_next_point(self):
+        head = self.p_list[-1]
+        next_point = Point(head.x, head.y, head.sym)
+        next_point.move(1, self.direction)
+        return next_point
