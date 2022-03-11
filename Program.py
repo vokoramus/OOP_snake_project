@@ -10,6 +10,10 @@ class Program:
         v1 = VerticalLine(0, 5, 25, '|')
         h1 = HorizontalLine(0, 8, 10, '-')
 
+        lines = []
+        lines.append(v1)
+        lines.append(h1)
+
         pt = Point(4, 5, '*')
         f_snake = Snake(pt, 15, 'right')
 
@@ -33,6 +37,14 @@ class Program:
         food.draw()
 
         while True:
+            stop = False
+            for line in lines:
+                if line.is_hit(snake):
+                    stop = True
+            if stop:
+                break
+
+
             if walls.is_hit(snake) or snake.is_hit_tail():
                 break
 

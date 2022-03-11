@@ -15,14 +15,12 @@ class Figure:
         for pt in self.p_list:
             if figure.is_hit_point(pt):
                 return True
-
         return False
 
     def is_hit_point(self, point):
         for pt in self.p_list:
             if pt.is_hit(point):
                 return True
-
         return False
 
 
@@ -138,15 +136,15 @@ class Snake(Figure):
 
 class FoodCreator:
     def __init__(self, map_width, map_height, sym):
-        self.map_width = map_width
-        self.map_height = map_height
-        self.sym = sym
+        self.__map_width = map_width
+        self.__map_height = map_height
+        self.__sym = sym
 
     def create_food(self):
-        x = randint(1, self.map_width - 1)
-        y = randint(1, self.map_height - 1)
+        x = randint(1, self.__map_width - 1)
+        y = randint(1, self.__map_height - 1)
 
-        return Point(x, y, self.sym)
+        return Point(x, y, self.__sym)
 
 
 class Walls(Figure):
@@ -172,3 +170,4 @@ class Walls(Figure):
         for wall in self.wall_list:
             if wall.is_hit(figure):
                 return True
+        return False
