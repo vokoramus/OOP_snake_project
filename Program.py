@@ -12,16 +12,20 @@ class Program:
         p2 = Point(2, 2, '#')
         p2.draw()
 
-        # line = HorizontalLine()
-        line = HorizontalLine(5, 10, 8, '+')
-        line.draw()
+        line_high = HorizontalLine(0, 78, 0, '+')
+        line_bottom = HorizontalLine(0, 78, 24, '+')
+        line_left = VerticalLine(0, 24, 0, '+')
+        line_right = VerticalLine(0, 24, 78, '+')
 
-        line = VerticalLine(2, 6, 20, '.')
-        line.draw()
+        line_high.draw()
+        line_bottom.draw()
+        line_left.draw()
+        line_right.draw()
 
 
 if __name__ == '__main__':
     os.system('cls')
+    # os.system('mode 82, 26')
     p = Program()
     p.Main()
 
