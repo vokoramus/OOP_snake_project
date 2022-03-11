@@ -16,3 +16,4 @@ def sys_draw(r, c, s):
 
     c = s.encode("windows-1252")
     windll.kernel32.WriteConsoleA(h, c_char_p(c), len(c), None, None)
+

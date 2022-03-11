@@ -7,23 +7,25 @@ from keys import keyboard_listener
 class Program:
     def main(self):
 
+        v1 = VerticalLine(0, 5, 25, '|')
+        h1 = HorizontalLine(0, 8, 10, '-')
+
+        pt = Point(4, 5, '*')
+        f_snake = Snake(pt, 15, 'right')
+
+        snake = f_snake
+
+        figures = []
+        figures.append(f_snake)
+        figures.append(v1)
+        figures.append(h1)
+
+        for f in figures:
+            self.draw(f)
+
         # рамка
-        line_high = HorizontalLine(0, 78, 0, '+')
-        line_bottom = HorizontalLine(0, 78, 24, '+')
-        line_left = VerticalLine(0, 24, 0, '+')
-        line_right = VerticalLine(0, 24, 78, '+')
-
-        line_high.draw()
-        line_bottom.draw()
-        line_left.draw()
-        line_right.draw()
-
-        # точки
-        p1 = Point(1, 1, '*')
-        p1.draw()
-
-        snake = Snake(p1, 4, 'right')
-        snake.draw()
+        walls = Walls(78, 24)
+        walls.draw()
 
         # еда
         food_creator = FoodCreator(78, 24, '$')  # габариты экрана
@@ -31,9 +33,10 @@ class Program:
         food.draw()
 
         while True:
+            if walls.is_hit(snake) or snake.is_hit_tail():
+                break
 
             if snake.eat(food):
-                print('!', end='')
                 food = food_creator.create_food()
                 food.draw()
             else:
@@ -46,6 +49,8 @@ class Program:
             sleep(0.1)
             snake.handle_key(key)
 
+    def draw(self, figure):
+        figure.draw()
 
 
 if __name__ == '__main__':

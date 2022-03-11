@@ -1,6 +1,7 @@
 from navigator import *
-import keys
 from random import randint
+import os
+
 
 class Figure:
     def __init__(self):
@@ -9,6 +10,20 @@ class Figure:
     def draw(self):
         for pt in self.p_list:
             pt.draw()
+
+    def is_hit(self, figure):
+        for pt in self.p_list:
+            if figure.is_hit_point(pt):
+                return True
+
+        return False
+
+    def is_hit_point(self, point):
+        for pt in self.p_list:
+            if pt.is_hit(point):
+                return True
+
+        return False
 
 
 class HorizontalLine(Figure):
@@ -92,6 +107,13 @@ class Snake(Figure):
         next_point.move(1, self.direction)
         return next_point
 
+    def is_hit_tail(self):
+        head = self.p_list[-1]
+        for i in range(len(self.p_list) - 2):
+            if head.is_hit(self.p_list[i]):
+                return True
+        return False
+
     def handle_key(self, key):
         if key in self.keys_funcs_keys:
             # print(keys_funcs[key])
@@ -107,6 +129,12 @@ class Snake(Figure):
         else:
             return False
 
+    # TODO: переопределить цвет и фон различных фигур
+    def draw(self):
+        # os.system('color 69')  # sets the background to blue
+        super().draw()
+        # os.system('color 96')  # sets the background to blue
+
 
 class FoodCreator:
     def __init__(self, map_width, map_height, sym):
@@ -119,3 +147,28 @@ class FoodCreator:
         y = randint(1, self.map_height - 1)
 
         return Point(x, y, self.sym)
+
+
+class Walls(Figure):
+    def __init__(self, map_width, map_height):
+        super().__init__()
+        self.wall_list = []
+
+        up_line = HorizontalLine(0, map_width, 0, '+')
+        down_line = HorizontalLine(0, map_width, map_height, '+')
+        left_line = VerticalLine(0, map_height, 0, '+')
+        right_line = VerticalLine(0, map_height, map_width, '+')
+
+        self.wall_list.append(up_line)
+        self.wall_list.append(down_line)
+        self.wall_list.append(left_line)
+        self.wall_list.append(right_line)
+
+    def draw(self):
+        for wall in self.wall_list:
+            wall.draw()
+
+    def is_hit(self, figure):
+        for wall in self.wall_list:
+            if wall.is_hit(figure):
+                return True
