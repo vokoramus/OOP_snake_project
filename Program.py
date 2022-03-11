@@ -1,6 +1,8 @@
 import os
 from items import *
 from time import sleep
+from keys import keyboard_listener
+
 
 class Program:
     def main(self):
@@ -23,9 +25,15 @@ class Program:
         snake = Snake(p1, 4, 'right')
         snake.draw()
 
-        for _ in range(10):
+        while True:
+            key = keyboard_listener()
+            if key == 'Esc':
+                break
+
+            snake.handle_key(key)
+
+            sleep(0.1)
             snake.move()
-            sleep(0.3)
 
 
 if __name__ == '__main__':
@@ -33,10 +41,3 @@ if __name__ == '__main__':
     # os.system('mode 82, 26')
     p = Program()
     p.main()
-
-    while True:
-        # i = input('Press Q to Quit or any other key to continue: ')
-        i = input('')
-
-        if i.capitalize() == 'Q':
-            break

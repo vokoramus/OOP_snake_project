@@ -1,5 +1,5 @@
 from navigator import *
-
+import keys
 
 class Figure:
     def __init__(self):
@@ -34,12 +34,6 @@ class Point:
         self.y = y
         self.sym = sym
 
-    # def move(self, dx, dy):
-    #     self.reset()
-    #     self.x += dx
-    #     self.y += dy
-    #     self.draw()
-
     def move(self, offset, direction):
         if direction == 'right':
             self.x += offset
@@ -62,6 +56,7 @@ class Point:
 
 
 class Snake(Figure):
+
     def __init__(self, tail: Point, length, direction):
         super().__init__()
         self.direction = direction
@@ -69,6 +64,15 @@ class Snake(Figure):
             pt = Point(tail.x, tail.y, tail.sym)
             pt.move(i, self.direction)
             self.p_list.append(pt)
+        self.keys_funcs = {
+            'w': 'up',
+            's': 'down',
+            'a': 'left',
+            'd': 'right',
+        }
+
+        self.keys_funcs_keys = self.keys_funcs.keys()
+
 
     def move(self):
         tail = self.p_list[0]
@@ -84,3 +88,9 @@ class Snake(Figure):
         next_point = Point(head.x, head.y, head.sym)
         next_point.move(1, self.direction)
         return next_point
+
+    def handle_key(self, key):
+        if key in self.keys_funcs_keys:
+            # print(keys_funcs[key])
+            self.direction = (self.keys_funcs[key])
+
