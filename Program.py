@@ -25,15 +25,27 @@ class Program:
         snake = Snake(p1, 4, 'right')
         snake.draw()
 
+        # еда
+        food_creator = FoodCreator(78, 24, '$')  # габариты экрана
+        food = food_creator.create_food()
+        food.draw()
+
         while True:
+
+            if snake.eat(food):
+                print('!', end='')
+                food = food_creator.create_food()
+                food.draw()
+            else:
+                snake.move()
+
             key = keyboard_listener()
             if key == 'Esc':
                 break
 
+            sleep(0.1)
             snake.handle_key(key)
 
-            sleep(0.1)
-            snake.move()
 
 
 if __name__ == '__main__':
